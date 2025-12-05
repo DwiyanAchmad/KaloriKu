@@ -1,0 +1,7 @@
+{
+  "name": "KaloriKu",
+  "description": "Aplikasi web untuk menganalisis kandungan nutrisi dan kalori makanan hanya dengan mengupload foto, menggunakan teknologi Google Gemini AI.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
