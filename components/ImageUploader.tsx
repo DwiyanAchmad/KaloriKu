@@ -23,6 +23,13 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageSelect, isLoading 
       return;
     }
 
+    // Check file size (20MB limit)
+    const maxSizeInBytes = 20 * 1024 * 1024; // 20 MB
+    if (file.size > maxSizeInBytes) {
+      alert('Ukuran file terlalu besar. Maksimal 20MB.');
+      return;
+    }
+
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64 = reader.result as string;
@@ -88,7 +95,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageSelect, isLoading 
                   Klik untuk upload atau drag & drop
                 </p>
                 <p className="text-sm text-gray-500 mt-2">
-                  Mendukung JPG, PNG, WEBP (Max 5MB)
+                  Mendukung JPG, PNG, WEBP (Max 20MB)
                 </p>
               </div>
               <div className="flex gap-4 mt-2">

@@ -61,22 +61,30 @@ const App: React.FC = () => {
                   Ketahui Apa yang <br className="hidden md:block" />
                   <span className="text-green-600">Kamu Makan</span>
                 </h2>
-                <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
+                <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8 px-4">
                   Upload foto makananmu dan biarkan AI menghitung kalori serta nutrisinya dalam hitungan detik. Hidup sehat jadi lebih mudah.
                 </p>
                 
-                <div className="flex justify-center gap-6 text-sm text-gray-500 mb-10">
-                  <div className="flex items-center gap-2">
-                    <Sparkles className="text-yellow-500 w-5 h-5" />
-                    <span>AI Powered</span>
+                <div className="flex flex-wrap justify-center gap-3 sm:gap-6 mb-10 px-2">
+                  <div className="flex items-center gap-2.5 px-4 py-2.5 bg-white/70 backdrop-blur-sm border border-yellow-100 rounded-full shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5">
+                    <div className="bg-yellow-100 p-1.5 rounded-full text-yellow-600">
+                      <Sparkles size={16} fill="currentColor" className="opacity-90" />
+                    </div>
+                    <span className="font-semibold text-gray-700 text-sm">AI Powered</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Utensils className="text-orange-500 w-5 h-5" />
-                    <span>Analisis Makro</span>
+
+                  <div className="flex items-center gap-2.5 px-4 py-2.5 bg-white/70 backdrop-blur-sm border border-orange-100 rounded-full shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5">
+                    <div className="bg-orange-100 p-1.5 rounded-full text-orange-600">
+                      <Utensils size={16} />
+                    </div>
+                    <span className="font-semibold text-gray-700 text-sm">Analisis Makro</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <ChefHat className="text-blue-500 w-5 h-5" />
-                    <span>Kenali Makanan</span>
+
+                  <div className="flex items-center gap-2.5 px-4 py-2.5 bg-white/70 backdrop-blur-sm border border-blue-100 rounded-full shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5">
+                    <div className="bg-blue-100 p-1.5 rounded-full text-blue-600">
+                      <ChefHat size={16} />
+                    </div>
+                    <span className="font-semibold text-gray-700 text-sm">Kenali Makanan</span>
                   </div>
                 </div>
               </div>

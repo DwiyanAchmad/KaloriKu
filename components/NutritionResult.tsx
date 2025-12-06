@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PieChart, Pie, Cell, ResponsiveContainer, Label } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, Label, Sector } from 'recharts';
 import { NutritionData, ChartData } from '../types';
 import { Flame, Droplets, Wheat, Dumbbell, Activity, Info, Utensils, Zap, Leaf, Candy } from 'lucide-react';
 
@@ -17,6 +17,26 @@ const COLORS = {
   sugar: '#ef4444',   // Red
   fiber: '#8b5cf6',   // Purple
   calories: '#f97316' // Orange
+};
+
+const renderActiveShape = (props: any) => {
+  const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill } = props;
+  return (
+    <g>
+      <Sector
+        cx={cx}
+        cy={cy}
+        innerRadius={innerRadius}
+        outerRadius={outerRadius + 15}
+        startAngle={startAngle}
+        endAngle={endAngle}
+        fill={fill}
+        stroke="#fff"
+        strokeWidth={4}
+        style={{ filter: 'drop-shadow(0px 4px 10px rgba(0,0,0,0.15))' }}
+      />
+    </g>
+  );
 };
 
 const NutritionResult: React.FC<NutritionResultProps> = ({ data, imageSrc, onReset }) => {
@@ -121,21 +141,25 @@ const NutritionResult: React.FC<NutritionResultProps> = ({ data, imageSrc, onRes
                       cx="50%"
                       cy="50%"
                       innerRadius={70}
-                      outerRadius={95}
+                      outerRadius={95} 
                       paddingAngle={5}
                       dataKey="value"
                       onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave}
+                      activeShape={renderActiveShape}
+                      {...{ activeIndex: activeIndex !== null ? activeIndex : undefined } as any}
                     >
-                      {chartData.map((entry, index) => (
-                        <Cell 
-                          key={`cell-${index}`} 
-                          fill={entry.fill} 
-                          strokeWidth={0}
-                          className="transition-all duration-300 focus:outline-none"
-                          opacity={activeIndex === null || activeIndex === index ? 1 : 0.3}
-                        />
-                      ))}
+                      {chartData.map((entry, index) => {
+                        const isActive = activeIndex === index;
+                        return (
+                          <Cell 
+                            key={`cell-${index}`} 
+                            fill={entry.fill} 
+                            opacity={activeIndex === null || isActive ? 1 : 0.4}
+                            className="focus:outline-none cursor-pointer"
+                          />
+                        );
+                      })}
                       <Label
                         value={`${data.calories}`}
                         position="centerBottom"
@@ -154,7 +178,7 @@ const NutritionResult: React.FC<NutritionResultProps> = ({ data, imageSrc, onRes
                
                {/* Insight Tooltip Overlay (Desktop) */}
                {activeIndex !== null && (
-                 <div className="absolute bottom-0 left-0 right-0 text-center animate-fade-in bg-gray-800 text-white text-xs py-2 px-4 rounded-lg pointer-events-none mx-8">
+                 <div className="absolute bottom-0 left-0 right-0 text-center animate-fade-in bg-gray-800/90 backdrop-blur-sm text-white text-xs py-2 px-4 rounded-lg pointer-events-none mx-8 shadow-lg transform translate-y-2">
                     {chartData[activeIndex].insight}
                  </div>
                )}
@@ -268,7 +292,7 @@ const NutrientCard: React.FC<{
   
   return (
     <div 
-      className={`p-3 rounded-xl transition-all duration-300 border ${isActive ? 'border-gray-200 shadow-sm bg-white opacity-100 scale-100' : 'border-transparent bg-gray-50 opacity-50 scale-95'}`}
+      className={`p-3 rounded-xl transition-all duration-300 border cursor-default ${isActive ? 'border-gray-200 shadow-sm bg-white opacity-100 scale-100 ring-2 ring-gray-50' : 'border-transparent bg-gray-50 opacity-60 scale-95'}`}
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
     >

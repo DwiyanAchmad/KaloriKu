@@ -23,4 +23,5 @@ export interface ChartData {
   value: number;
   fill: string;
   insight: string;
+  [key: string]: any;
 }
